@@ -105,26 +105,34 @@ function showTriageResult() {
 
 // トリアージ判定ロジック
 function performTriage(canWalk, hasConsciousness) {
+    // 歩行あり、意識あり => 緑
     if (canWalk === true && hasConsciousness === true) {
         return {
             color: 'green',
             text: '緑（軽症）',
             instruction: '軽処置後、避難所へ誘導してください'
         };
-    } else if (canWalk === false && hasConsciousness === true) {
+    } 
+    // 歩行なし、意識なし => 赤 (修正点1: 最優先治療群へ)
+    else if (canWalk === false && hasConsciousness === false) {
         return {
             color: 'red',
             text: '赤（最優先治療群）',
             instruction: '緊急！医師を呼び、救護所への搬送を優先してください'
         };
-    } else if ((canWalk === false && hasConsciousness === false) || 
+    } 
+    // 歩行なし、意識あり => 黄 (修正点2: 準緊急治療群へ)
+    // 歩行あり、意識なし => 黄 (ここは元々黄色で問題なし)
+    else if ((canWalk === false && hasConsciousness === true) || 
                (canWalk === true && hasConsciousness === false)) {
         return {
             color: 'yellow',
             text: '黄（準緊急治療群）',
             instruction: '継続的に意識状態を確認し、迅速に救護所に搬送してください'
         };
-    } else {
+    } 
+    // その他のケース（通常はありえないが、念のため）
+    else {
         return {
             color: 'gray',
             text: '判定不能',
@@ -132,7 +140,6 @@ function performTriage(canWalk, hasConsciousness) {
         };
     }
 }
-
 // フォーム操作イベントリスナーの設定
 function setupFormListeners() {
     // トリアージ判定に戻るボタン
