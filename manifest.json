@@ -1,0 +1,22 @@
+{
+  "name": "災害時トリアージ支援アプリ",
+  "short_name": "トリアージ",
+  "description": "災害時の医療トリアージを支援するオフラインでも使えるアプリケーション",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4285f4",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+
